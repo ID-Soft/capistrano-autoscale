@@ -18,11 +18,11 @@ describe Capistrano::Autoscale::AWS::InstanceCollection do
       describe '#instances' do
         it 'returns Instance objects with name/hostname/state' do
           expect(subject.instances[0].id).to eq 'i-1234567890'
-          expect(subject.instances[0].private_ip).to eq '10.0.0.12'
+          expect(subject.instances[0].public_ip).to eq '10.0.0.12'
           expect(subject.instances[0].state).to eq 16
 
           expect(subject.instances[1].id).to eq 'i-500'
-          expect(subject.instances[1].private_ip).to eq '10.0.0.12'
+          expect(subject.instances[1].public_ip).to eq '10.0.0.12'
           expect(subject.instances[1].state).to eq 32
         end
       end

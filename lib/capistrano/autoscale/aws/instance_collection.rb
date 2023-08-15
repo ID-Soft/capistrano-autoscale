@@ -10,7 +10,7 @@ module Capistrano
 
         def initialize(ids)
           @instances = query_instances_by_ids(ids).map do |i|
-            Instance.new(i.instance_id, i.private_ip_address, i.state.code)
+            Instance.new(i.instance_id, i.public_ip_address, i.state.code)
           end
         end
 
