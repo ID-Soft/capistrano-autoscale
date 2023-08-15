@@ -15,7 +15,7 @@ module Capistrano
         info "Auto Scaling Group: #{groupname}"
 
         instances.each.with_index do |instance, index|
-          info "Adding server #{instance.private_ip}"
+          info "Adding server #{instance.public_ip}"
 
           if index.zero? && properties.key?(:primary_roles)
             server_properties = properties.dup
@@ -24,7 +24,7 @@ module Capistrano
             server_properties = properties
           end
 
-          server(instance.private_ip, server_properties)
+          server(instance.public_ip, server_properties)
         end
 
         instances = asg.instances_in_service.running

@@ -10,9 +10,9 @@ describe Capistrano::Autoscale::AWS::Instance do
     end
   end
 
-  describe '#private_ip' do
+  describe '#public_ip' do
     it 'returns the private IP address' do
-      expect(subject.private_ip).to eq '10.0.0.1'
+      expect(subject.public_ip).to eq '10.0.0.1'
     end
   end
 
