@@ -10,6 +10,7 @@ namespace :load do
     set_if_empty :aws_autoscale_suspend_processes, true
     set_if_empty :aws_autoscale_cleanup_old_versions, true
     set_if_empty :aws_autoscale_keep_versions, fetch(:keep_releases)
+    set_if_empty :aws_autoscale_use_stand_by, true
   end
 end
 
@@ -66,11 +67,13 @@ namespace :autoscale do
     instance = asg.instances_in_service.running.sample
 
     if instance
-      info "Instance #{instance.id} entering standby state..."
-      asg.enter_standby(instance)
+      if fetch(:aws_autoscale_use_stand_by)
+        info "Instance #{instance.id} entering standby state..."
+        asg.enter_standby(instance)
 
-      standby_instances = fetch(:aws_autoscale_standby_instances)
-      standby_instances << [asg, instance]
+        standby_instances = fetch(:aws_autoscale_standby_instances)
+        standby_instances << [asg, instance]
+      end
 
       info "Creating AMI from #{instance.id} "
 
@@ -81,7 +84,7 @@ namespace :autoscale do
 
       info "Created AMI: #{ami.id}"
 
-      unless asg.suspended?
+      unless asg.suspended? || !fetch(:aws_autoscale_use_stand_by)
         info "Instance #{instance.id} exiting standby state..."
         asg.exit_standby(instance)
       end
