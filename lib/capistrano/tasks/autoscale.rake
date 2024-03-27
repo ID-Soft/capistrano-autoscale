@@ -11,6 +11,7 @@ namespace :load do
     set_if_empty :aws_autoscale_cleanup_old_versions, true
     set_if_empty :aws_autoscale_keep_versions, fetch(:keep_releases)
     set_if_empty :aws_autoscale_use_stand_by, true
+    set_if_empty :aws_autoscale_skip_instance_reboot, false
   end
 end
 
@@ -77,7 +78,7 @@ namespace :autoscale do
 
       info "Creating AMI from #{instance.id} "
 
-      ami = Capistrano::Autoscale::AWS::AMI.create(instance, prefix: prefix)
+      ami = Capistrano::Autoscale::AWS::AMI.create(instance, prefix: prefix, no_reboot: fetch(:aws_autoscale_skip_instance_reboot))
       ami.create_tags(asg.name)
 
       set :aws_autoscale_ami, ami
