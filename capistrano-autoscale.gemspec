@@ -5,13 +5,13 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'capistrano/autoscale/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'capistrano-autoscale'
+  spec.name          = 'capistrano-autoscale-hannah'
   spec.version       = Capistrano::Autoscale::VERSION
-  spec.authors       = ['Logan Serman']
-  spec.email         = ['loganserman@gmail.com']
-  spec.summary       = 'Capistrano plugin for deploying to AWS Auto Scaling Groups.'
+  spec.authors       = ['François Fitzpatrick']
+  spec.email         = ['francois.fitzpatrick@gmail.com']
+  spec.summary       = 'Capistrano plugin for deploying to AWS Auto Scaling Groups with enhanced features.'
   spec.description   = spec.summary
-  spec.homepage      = 'https://github.com/KentaaNL/capistrano-autoscale'
+  spec.homepage      = 'https://github.com/ID-Soft/capistrano-autoscale'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")
